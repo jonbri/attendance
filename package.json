@@ -1,5 +1,5 @@
 {
-  "name": "vite-six-rr",
+  "name": "attendance",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,6 +9,7 @@
     "dev:vite": "vite dev",
     "start": "cross-env NODE_ENV=production react-router-serve ./build/server/index.js",
     "format": "prettier --write .",
+    "format:check": "prettier . --check",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {

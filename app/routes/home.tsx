@@ -20,7 +20,9 @@ const averageDaysPerWeekInOffice = (
 export default function Home() {
   return (
     <div>
-      <h4>Office Attendance</h4>
+      <NavLink to="/" end>
+        Home
+      </NavLink>
       <table>
         <thead>
           <tr>
