@@ -20,6 +20,67 @@ const averageDaysPerWeekInOffice = (
 export default function Home() {
   const aggregateColor =
     parseInt(averageDaysPerWeekInOffice) >= 3 ? "green" : "red";
+
+  const highestPresent = attendance.reduce((acc, [, present]) => {
+    return present > acc ? present : acc;
+  }, 0);
+  const lowestPresent = attendance.reduce((acc, [, present]) => {
+    return present < acc ? present : acc;
+  }, 100);
+
+  const highestAbsent = attendance.reduce((acc, [, present, total]) => {
+    const absent = total - present;
+    return absent > acc ? absent : acc;
+  }, 0);
+  const lowestAbsent = attendance.reduce((acc, [, present, total]) => {
+    const absent = total - present;
+    return absent < acc ? absent : acc;
+  }, 100);
+
+  const highestPresentDate = attendance.find(
+    ([, present]) => present === highestPresent
+  ) ?? ["", 0, 0];
+  const lowestPresentDate = attendance.find(
+    ([, present]) => present === lowestPresent
+  ) ?? ["", 0, 0];
+  const highestAbsentDate = attendance.find(
+    ([, present, total]) => total - present === highestAbsent
+  ) ?? ["", 0, 0];
+  const lowestAbsentDate = attendance.find(
+    ([, present, total]) => total - present === lowestAbsent
+  ) ?? ["", 0, 0];
+
+  const highestPercent = attendance.reduce((acc, [, present, total]) => {
+    const percent = (present / total) * 100;
+    return percent > acc ? percent : acc;
+  }, 0);
+  const lowestPercent = attendance.reduce((acc, [, present, total]) => {
+    const percent = (present / total) * 100;
+    return percent < acc ? percent : acc;
+  }, 100);
+
+  const highestPercentDate = attendance.find(
+    ([, present, total]) => (present / total) * 100 === highestPercent
+  ) ?? ["", 0, 0];
+  const lowestPercentDate = attendance.find(
+    ([, present, total]) => (present / total) * 100 === lowestPercent
+  ) ?? ["", 0, 0];
+
+  console.log("highestPercent", highestPercent);
+  console.log("lowestPercent", lowestPercent);
+  console.log("highestPercentDate", highestPercentDate);
+  console.log("lowestPercentDate", lowestPercentDate);
+
+  console.log("highestPresentDate", highestPresentDate);
+  console.log("lowestPresentDate", lowestPresentDate);
+  console.log("highestAbsentDate", highestAbsentDate);
+  console.log("lowestAbsentDate", lowestAbsentDate);
+
+  console.log("highestPresent", highestPresent);
+  console.log("lowestPresent", lowestPresent);
+  console.log("highestAbsent", highestAbsent);
+  console.log("lowestAbsent", lowestAbsent);
+
   return (
     <div style={{ backgroundColor: "lightblue", padding: "30px" }}>
       <style>
@@ -57,9 +118,27 @@ export default function Home() {
         <tbody>
           {attendance.map(([date, present, total]) => {
             const absent = total - present;
+            // const inOfficePercentage = `${((present / total) * 100).toFixed(1)}%`;
+            // const averageDaysPerWeekInOffice = (
+            //   (5 * ((present / total) * 100)) /
+            //   100
+            // ).toFixed(1);
+
+            // const isHighestPresent = highestPresentDate[0].toString() === date;
+            // const isLowestPresent = lowestPresentDate[0].toString() === date;
+            // const isHighestAbsent = highestAbsentDate[0].toString() === date;
+            // const isLowestAbsent = lowestAbsentDate[0].toString() === date;
+            const isHighestPercent = highestPercentDate[0].toString() === date;
+            const isLowestPercent = lowestPercentDate[0].toString() === date;
+
+            let backgroundColor = isHighestPercent ? "green" : "white";
+            if (isLowestPercent) {
+              backgroundColor = "white";
+            }
+
             return (
               <tr key={date}>
-                <td>{date}</td>
+                <td style={{ backgroundColor }}>{date}</td>
                 <td>{present}</td>
                 <td>{absent}</td>
                 <td>{total}</td>
