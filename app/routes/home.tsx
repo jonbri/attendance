@@ -18,8 +18,9 @@ const averageDaysPerWeekInOffice = (
 ).toFixed(1);
 
 export default function Home() {
+  const brown = "#8B4513";
   const aggregateColor =
-    parseInt(averageDaysPerWeekInOffice) >= 3 ? "green" : "red";
+    parseInt(averageDaysPerWeekInOffice) >= 3 ? "green" : brown;
 
   const highestPresent = attendance.reduce((acc, [, present]) => {
     return present > acc ? present : acc;
@@ -131,7 +132,7 @@ export default function Home() {
             const isHighestPercent = highestPercentDate[0].toString() === date;
             const isLowestPercent = lowestPercentDate[0].toString() === date;
 
-            let backgroundColor = isHighestPercent ? "green" : "white";
+            let backgroundColor = isHighestPercent ? "gold" : "white";
             if (isLowestPercent) {
               backgroundColor = "white";
             }
