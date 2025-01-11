@@ -39,16 +39,16 @@ export default function Home() {
   }, 100);
 
   const highestPresentDate = attendance.find(
-    ([, present]) => present === highestPresent,
+    ([, present]) => present === highestPresent
   ) ?? ["", 0, 0];
   const lowestPresentDate = attendance.find(
-    ([, present]) => present === lowestPresent,
+    ([, present]) => present === lowestPresent
   ) ?? ["", 0, 0];
   const highestAbsentDate = attendance.find(
-    ([, present, total]) => total - present === highestAbsent,
+    ([, present, total]) => total - present === highestAbsent
   ) ?? ["", 0, 0];
   const lowestAbsentDate = attendance.find(
-    ([, present, total]) => total - present === lowestAbsent,
+    ([, present, total]) => total - present === lowestAbsent
   ) ?? ["", 0, 0];
 
   const highestPercent = attendance.reduce((acc, [, present, total]) => {
@@ -61,10 +61,10 @@ export default function Home() {
   }, 100);
 
   const highestPercentDate = attendance.find(
-    ([, present, total]) => (present / total) * 100 === highestPercent,
+    ([, present, total]) => (present / total) * 100 === highestPercent
   ) ?? ["", 0, 0];
   const lowestPercentDate = attendance.find(
-    ([, present, total]) => (present / total) * 100 === lowestPercent,
+    ([, present, total]) => (present / total) * 100 === lowestPercent
   ) ?? ["", 0, 0];
 
   console.log("highestPercent", highestPercent);
@@ -83,18 +83,23 @@ export default function Home() {
   console.log("lowestAbsent", lowestAbsent);
 
   return (
-    <div style={{ backgroundColor: "lightblue", padding: "10px" }}>
+    <div>
       <style>
         {`
+      body {
+        font-size: 1rem;
+        background-color: lightblue;
+      }
       table {
         border-collapse: collapse;
-        width: 90%;
+        min-width: 80%;
         background-color: white;
         margin: auto;
+        font-family: courier;
       }
       th, td {
-        border: 1px solid black;
-        padding: 8px;
+        border: 1px solid #ddd;
+        padding: 6px;
         text-align: center;
       }
       th {
@@ -109,11 +114,11 @@ export default function Home() {
         <thead>
           <tr>
             <th></th>
-            <th>Present</th>
-            <th>Absent</th>
+            <th>Pres.</th>
+            <th>Abs.</th>
             <th>Days</th>
             <th>PCT</th>
-            <th>Per-week</th>
+            <th>Rate</th>
           </tr>
         </thead>
         <tbody>
@@ -149,7 +154,7 @@ export default function Home() {
             );
           })}
           <tr>
-            <th>Total</th>
+            <th></th>
             <th>{totalInOffice}</th>
             <th>{totalAbsent}</th>
             <th>{totalOffice}</th>
