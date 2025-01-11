@@ -9,6 +9,7 @@ export function meta({}: Route.MetaArgs) {
 }
 const totalInOffice = attendance.reduce((acc, [, present]) => acc + present, 0);
 const totalOffice = attendance.reduce((acc, [, , total]) => acc + total, 0);
+const totalAbsent = totalOffice - totalInOffice;
 const inOfficePercentageValue = (totalInOffice / totalOffice) * 100;
 const inOfficePercentage = `${inOfficePercentageValue.toFixed(1)}%`;
 const averageDaysPerWeekInOffice = (
@@ -25,16 +26,14 @@ export default function Home() {
         {`
       table {
         border-collapse: collapse;
-        width: 100%;
+        width: 75%;
         background-color: white;
+        margin: auto;
       }
       th, td {
         border: 1px solid black;
         padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
+        text-align: center;
       }
       th {
         background-color: #f2f2f2;
@@ -47,32 +46,35 @@ export default function Home() {
       <table>
         <thead>
           <tr>
-            <th>Month</th>
-            <th>Present / Total</th>
+            <th></th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Days</th>
             <th>PCT</th>
-            <th>AVG (days-per-week)</th>
+            <th>Per-week</th>
           </tr>
         </thead>
         <tbody>
-          {attendance.map(([date, present, total]) => (
-            <tr key={date}>
-              <td>{date}</td>
-              <td>{`${present} / ${total}`}</td>
-              <td>{`${((present / total) * 100).toFixed(1)}%`}</td>
-              <td>{((5 * ((present / total) * 100)) / 100).toFixed(1)}</td>
-            </tr>
-          ))}
+          {attendance.map(([date, present, total]) => {
+            const absent = total - present;
+            return (
+              <tr key={date}>
+                <td>{date}</td>
+                <td>{present}</td>
+                <td>{absent}</td>
+                <td>{total}</td>
+                <td>{`${((present / total) * 100).toFixed(1)}%`}</td>
+                <td>{((5 * ((present / total) * 100)) / 100).toFixed(1)}</td>
+              </tr>
+            );
+          })}
           <tr>
             <th>Total</th>
-            <th>
-              <strong>{`${totalInOffice} / ${totalOffice}`}</strong>
-            </th>
-            <th>
-              <strong>{inOfficePercentage}</strong>
-            </th>
-            <th className="aggregate">
-              <strong>{averageDaysPerWeekInOffice}</strong>
-            </th>
+            <th>{totalInOffice}</th>
+            <th>{totalAbsent}</th>
+            <th>{totalOffice}</th>
+            <th>{inOfficePercentage}</th>
+            <th className="aggregate">{averageDaysPerWeekInOffice}</th>
           </tr>
         </tbody>
       </table>
