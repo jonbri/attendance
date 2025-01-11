@@ -83,12 +83,12 @@ export default function Home() {
   console.log("lowestAbsent", lowestAbsent);
 
   return (
-    <div style={{ backgroundColor: "lightblue", padding: "30px" }}>
+    <div style={{ backgroundColor: "lightblue", padding: "10px" }}>
       <style>
         {`
       table {
         border-collapse: collapse;
-        width: 75%;
+        width: 90%;
         background-color: white;
         margin: auto;
       }
