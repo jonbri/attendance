@@ -108,16 +108,19 @@ export default function Home() {
       .aggregate {
          color: ${aggregateColor}
       }
+      .highlighted {
+        background-color: #f0e68c;
+      }
       `}
       </style>
       <table>
         <thead>
           <tr>
             <th></th>
-            <th>Pres.</th>
-            <th>Abs.</th>
+            <th>Pres</th>
+            <th>Abs</th>
             <th>Days</th>
-            <th>PCT</th>
+            <th>Pct</th>
             <th>Rate</th>
           </tr>
         </thead>
@@ -143,8 +146,13 @@ export default function Home() {
             }
 
             return (
-              <tr key={date}>
-                <td style={{ backgroundColor }}>{date}</td>
+              <tr
+                key={date}
+                className={
+                  backgroundColor === "gold" ? "highlighted" : undefined
+                }
+              >
+                <td>{date}</td>
                 <td>{present}</td>
                 <td>{absent}</td>
                 <td>{total}</td>
