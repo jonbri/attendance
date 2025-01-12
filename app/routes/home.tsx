@@ -39,16 +39,16 @@ export default function Home() {
   }, 100);
 
   const highestPresentDate = attendance.find(
-    ([, present]) => present === highestPresent
+    ([, present]) => present === highestPresent,
   ) ?? ["", 0, 0];
   const lowestPresentDate = attendance.find(
-    ([, present]) => present === lowestPresent
+    ([, present]) => present === lowestPresent,
   ) ?? ["", 0, 0];
   const highestAbsentDate = attendance.find(
-    ([, present, total]) => total - present === highestAbsent
+    ([, present, total]) => total - present === highestAbsent,
   ) ?? ["", 0, 0];
   const lowestAbsentDate = attendance.find(
-    ([, present, total]) => total - present === lowestAbsent
+    ([, present, total]) => total - present === lowestAbsent,
   ) ?? ["", 0, 0];
 
   const highestPercent = attendance.reduce((acc, [, present, total]) => {
@@ -61,10 +61,10 @@ export default function Home() {
   }, 100);
 
   const highestPercentDate = attendance.find(
-    ([, present, total]) => (present / total) * 100 === highestPercent
+    ([, present, total]) => (present / total) * 100 === highestPercent,
   ) ?? ["", 0, 0];
   const lowestPercentDate = attendance.find(
-    ([, present, total]) => (present / total) * 100 === lowestPercent
+    ([, present, total]) => (present / total) * 100 === lowestPercent,
   ) ?? ["", 0, 0];
 
   console.log("highestPercent", highestPercent);
