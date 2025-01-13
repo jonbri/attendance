@@ -25,6 +25,7 @@
     "@types/node": "^20",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
+    "classnames": "^2.5.1",
     "cross-env": "^7.0.3",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",

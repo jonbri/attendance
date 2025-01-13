@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import type { Route } from "./+types/home";
 import { attendance } from "~/data";
 
@@ -148,9 +149,9 @@ export default function Home() {
             return (
               <tr
                 key={date}
-                className={
-                  backgroundColor === "gold" ? "highlighted" : undefined
-                }
+                className={classnames(
+                  backgroundColor === "gold" ? "highlighted" : undefined,
+                )}
               >
                 <td>{date}</td>
                 <td>{present}</td>
