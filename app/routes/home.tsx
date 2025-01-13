@@ -141,8 +141,8 @@ export default function Home() {
                 </td>
                 <td
                   className={classnames(
-                    isLowestAbsent && "bad",
-                    isHighestAbsent && "good",
+                    isLowestAbsent && "good",
+                    isHighestAbsent && "bad",
                   )}
                 >
                   {absent}
