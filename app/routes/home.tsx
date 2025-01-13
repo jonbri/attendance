@@ -3,10 +3,7 @@ import type { Route } from "./+types/home";
 import { attendance } from "~/data";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Attendance" },
-    { name: "description", content: "An app to keep track of attendance" },
-  ];
+  return [{ title: "Attendance" }];
 }
 const totalInOffice = attendance.reduce((acc, [, present]) => acc + present, 0);
 const totalOffice = attendance.reduce((acc, [, , total]) => acc + total, 0);
@@ -35,24 +32,10 @@ export default function Home() {
     return absent < acc ? absent : acc;
   }, 100);
 
-  const highestPresentDate = attendance.find(
-    ([, present]) => present === highestPresent,
-  ) ?? ["", 0, 0];
-  const lowestPresentDate = attendance.find(
-    ([, present]) => present === lowestPresent,
-  ) ?? ["", 0, 0];
-  const highestAbsentDate = attendance.find(
-    ([, present, total]) => total - present === highestAbsent,
-  ) ?? ["", 0, 0];
-  const lowestAbsentDate = attendance.find(
-    ([, present, total]) => total - present === lowestAbsent,
-  ) ?? ["", 0, 0];
-
   const highestRate = attendance.reduce((acc, [, present, total]) => {
     const rate = (5 * ((present / total) * 100)) / 100;
     return rate > acc ? rate : acc;
   }, 0);
-
   const lowestRate = attendance.reduce((acc, [, present, total]) => {
     const rate = (5 * ((present / total) * 100)) / 100;
     return rate < acc ? rate : acc;
@@ -66,28 +49,6 @@ export default function Home() {
     const percent = (present / total) * 100;
     return percent < acc ? percent : acc;
   }, 100);
-
-  const highestPercentDate = attendance.find(
-    ([, present, total]) => (present / total) * 100 === highestPercent,
-  ) ?? ["", 0, 0];
-  const lowestPercentDate = attendance.find(
-    ([, present, total]) => (present / total) * 100 === lowestPercent,
-  ) ?? ["", 0, 0];
-
-  console.log("highestPercent", highestPercent);
-  console.log("lowestPercent", lowestPercent);
-  console.log("highestPercentDate", highestPercentDate);
-  console.log("lowestPercentDate", lowestPercentDate);
-
-  console.log("highestPresentDate", highestPresentDate);
-  console.log("lowestPresentDate", lowestPresentDate);
-  console.log("highestAbsentDate", highestAbsentDate);
-  console.log("lowestAbsentDate", lowestAbsentDate);
-
-  console.log("highestPresent", highestPresent);
-  console.log("lowestPresent", lowestPresent);
-  console.log("highestAbsent", highestAbsent);
-  console.log("lowestAbsent", lowestAbsent);
 
   return (
     <div>
