@@ -81,6 +81,7 @@ export default function Home() {
       }
       .bad {
         font-style: italic;
+        color: red;
       }
       .good {
         font-style: italic;
