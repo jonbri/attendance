@@ -95,7 +95,7 @@ export default function Home() {
             <th></th>
             <th>Pres</th>
             <th>Abs</th>
-            <th>Days</th>
+            <th>Tot</th>
             <th>Pct</th>
             <th>Rate</th>
           </tr>
