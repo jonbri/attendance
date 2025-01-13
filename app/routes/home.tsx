@@ -80,9 +80,10 @@ export default function Home() {
         background-color: #f0e68c;
       }
       .bad {
-        color: red;
+        font-style: italic;
       }
       .good {
+        font-style: italic;
         color: green;
       }
       `}
