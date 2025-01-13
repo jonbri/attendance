@@ -123,13 +123,14 @@ export default function Home() {
             }
 
             return (
-              <tr
-                key={date}
-                className={classnames(
-                  backgroundColor === "gold" ? "highlighted" : undefined,
-                )}
-              >
-                <td>{date}</td>
+              <tr key={date}>
+                <td
+                  className={classnames(
+                    backgroundColor === "gold" ? "highlighted" : undefined,
+                  )}
+                >
+                  {date}
+                </td>
                 <td
                   className={classnames(
                     isLowestPresent && "bad",
