@@ -13,15 +13,11 @@ const totalOffice = attendance.reduce((acc, [, , total]) => acc + total, 0);
 const totalAbsent = totalOffice - totalInOffice;
 const inOfficePercentageValue = (totalInOffice / totalOffice) * 100;
 const inOfficePercentage = `${inOfficePercentageValue.toFixed(1)}%`;
-const averageDaysPerWeekInOffice = (
-  (5 * inOfficePercentageValue) /
-  100
-).toFixed(1);
+const rate = ((5 * inOfficePercentageValue) / 100).toFixed(1);
 
 export default function Home() {
   const brown = "#8B4513";
-  const aggregateColor =
-    parseInt(averageDaysPerWeekInOffice) >= 3 ? "green" : brown;
+  const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
 
   const highestPresent = attendance.reduce((acc, [, present]) => {
     return present > acc ? present : acc;
@@ -51,6 +47,16 @@ export default function Home() {
   const lowestAbsentDate = attendance.find(
     ([, present, total]) => total - present === lowestAbsent,
   ) ?? ["", 0, 0];
+
+  const highestRate = attendance.reduce((acc, [, present, total]) => {
+    const rate = (5 * ((present / total) * 100)) / 100;
+    return rate > acc ? rate : acc;
+  }, 0);
+
+  const lowestRate = attendance.reduce((acc, [, present, total]) => {
+    const rate = (5 * ((present / total) * 100)) / 100;
+    return rate < acc ? rate : acc;
+  }, 100);
 
   const highestPercent = attendance.reduce((acc, [, present, total]) => {
     const percent = (present / total) * 100;
@@ -112,6 +118,12 @@ export default function Home() {
       .highlighted {
         background-color: #f0e68c;
       }
+      .bad {
+        color: red;
+      }
+      .good {
+        color: green;
+      }
       `}
       </style>
       <table>
@@ -128,18 +140,20 @@ export default function Home() {
         <tbody>
           {attendance.map(([date, present, total]) => {
             const absent = total - present;
-            // const inOfficePercentage = `${((present / total) * 100).toFixed(1)}%`;
-            // const averageDaysPerWeekInOffice = (
-            //   (5 * ((present / total) * 100)) /
-            //   100
-            // ).toFixed(1);
+            const inOfficePercentage = `${((present / total) * 100).toFixed(1)}%`;
+            const rate = (5 * ((present / total) * 100)) / 100;
 
-            // const isHighestPresent = highestPresentDate[0].toString() === date;
-            // const isLowestPresent = lowestPresentDate[0].toString() === date;
-            // const isHighestAbsent = highestAbsentDate[0].toString() === date;
-            // const isLowestAbsent = lowestAbsentDate[0].toString() === date;
-            const isHighestPercent = highestPercentDate[0].toString() === date;
-            const isLowestPercent = lowestPercentDate[0].toString() === date;
+            const isHighestPresent = present === highestPresent;
+            const isLowestPresent = present === lowestPresent;
+            const isHighestAbsent = absent === highestAbsent;
+            const isLowestAbsent = absent === lowestAbsent;
+            const isHighestPercent =
+              `${highestPercent.toFixed(1)}%` === inOfficePercentage;
+            const isLowestPercent =
+              `${lowestPercent.toFixed(1)}%` === inOfficePercentage;
+
+            const isHighestRate = highestRate === rate;
+            const isLowestRate = lowestRate === rate;
 
             let backgroundColor = isHighestPercent ? "gold" : "white";
             if (isLowestPercent) {
@@ -154,11 +168,39 @@ export default function Home() {
                 )}
               >
                 <td>{date}</td>
-                <td>{present}</td>
-                <td>{absent}</td>
+                <td
+                  className={classnames(
+                    isLowestPresent && "bad",
+                    isHighestPresent && "good",
+                  )}
+                >
+                  {present}
+                </td>
+                <td
+                  className={classnames(
+                    isLowestAbsent && "bad",
+                    isHighestAbsent && "good",
+                  )}
+                >
+                  {absent}
+                </td>
                 <td>{total}</td>
-                <td>{`${((present / total) * 100).toFixed(1)}%`}</td>
-                <td>{((5 * ((present / total) * 100)) / 100).toFixed(1)}</td>
+                <td
+                  className={classnames(
+                    isLowestPercent && "bad",
+                    isHighestPercent && "good",
+                  )}
+                >
+                  {inOfficePercentage}
+                </td>
+                <td
+                  className={classnames(
+                    isLowestRate && "bad",
+                    isHighestRate && "good",
+                  )}
+                >
+                  {rate.toFixed(1)}
+                </td>
               </tr>
             );
           })}
@@ -168,7 +210,7 @@ export default function Home() {
             <th>{totalAbsent}</th>
             <th>{totalOffice}</th>
             <th>{inOfficePercentage}</th>
-            <th className="aggregate">{averageDaysPerWeekInOffice}</th>
+            <th className="aggregate">{rate}</th>
           </tr>
         </tbody>
       </table>
