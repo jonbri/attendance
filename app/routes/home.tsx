@@ -51,6 +51,11 @@ export default function Home() {
     const percent = (present / total) * 100;
     return percent < acc ? percent : acc;
   }, 100);
+  
+  let backgroundColor = "white";
+
+  //
+  // rate
 
   return (
     <div>
@@ -58,7 +63,7 @@ export default function Home() {
         {`
       body {
         font-size: 1rem;
-        background-color: lightblue;
+        background-color: ${backgroundColor};
         font-family: arial;
       }
       table {
