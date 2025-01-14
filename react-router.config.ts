@@ -5,5 +5,4 @@ export default {
   async prerender() {
     return ["/"];
   },
-  basename: "/foo",
 } satisfies Config;
