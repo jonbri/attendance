@@ -57,6 +57,7 @@ export default function Home() {
       body {
         font-size: 1rem;
         background-color: lightblue;
+        font-family: arial;
       }
       table {
         border-collapse: collapse;
@@ -87,8 +88,37 @@ export default function Home() {
         font-style: italic;
         color: green;
       }
+      header {
+        display: flex;
+        position: relative;
+        border-bottom: 1px solid black;
+        margin-bottom: 5px;
+      }
+      header h1 {
+        margin: 0;
+        padding: 0;
+        margin: auto;
+        font-size: .8rem;
+
+      }
+      footer {
+        margin-top: 20px;
+        font-size: 0.8rem;
+      }
+      footer ul {
+         display: inline;
+         margin: 0;
+         padding: 0;
+      }
+      footer li {
+         display: inline;
+         margin-right: 5px;
+      }
       `}
       </style>
+      <header>
+        <h1>Attendance</h1>
+      </header>
       <table>
         <thead>
           <tr>
@@ -178,6 +208,16 @@ export default function Home() {
           </tr>
         </tbody>
       </table>
+      <footer>
+        <ul>
+          <li>
+            <a href="https://jonbri.github.io/keep/">Keep</a>
+          </li>
+          <li>
+            <a href="https://github.com/jonbri/attendance">GitHub</a>
+          </li>
+        </ul>
+      </footer>
     </div>
   );
 }
