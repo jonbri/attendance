@@ -51,11 +51,8 @@ export default function Home() {
     const percent = (present / total) * 100;
     return percent < acc ? percent : acc;
   }, 100);
-  
-  let backgroundColor = "white";
 
-  //
-  // rate
+  const backgroundColor = "white";
 
   return (
     <div>
