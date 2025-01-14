@@ -10,7 +10,8 @@ const totalOffice = attendance.reduce((acc, [, , total]) => acc + total, 0);
 const totalAbsent = totalOffice - totalInOffice;
 const inOfficePercentageValue = (totalInOffice / totalOffice) * 100;
 const inOfficePercentage = `${inOfficePercentageValue.toFixed(1)}%`;
-const rate = ((5 * inOfficePercentageValue) / 100).toFixed(1);
+const exactRate = (5 * inOfficePercentageValue) / 100;
+const rate = exactRate.toFixed(2);
 
 export default function Home() {
   const brown = "#8B4513";
@@ -52,7 +53,27 @@ export default function Home() {
     return percent < acc ? percent : acc;
   }, 100);
 
-  const backgroundColor = "white";
+  const warningYellow = "#f0e68c";
+  const lighterGreen = "#98FB98";
+  const lightGreen = "#90EE90";
+  const middleGreen = "#00FF00";
+  const solidGreen = "#006400";
+  let backgroundColor = "white";
+  if (exactRate >= 2.6) {
+    backgroundColor = warningYellow;
+  }
+  if (exactRate >= 2.7) {
+    backgroundColor = lighterGreen;
+  }
+  if (exactRate >= 2.8) {
+    backgroundColor = lightGreen;
+  }
+  if (exactRate >= 2.9) {
+    backgroundColor = middleGreen;
+  }
+  if (exactRate >= 3) {
+    backgroundColor = solidGreen;
+  }
 
   return (
     <div>
@@ -82,7 +103,8 @@ export default function Home() {
          color: ${aggregateColor}
       }
       .highlighted {
-        background-color: #f0e68c;
+        color: green;
+        font-style: italic;
       }
       .bad {
         font-style: italic;
@@ -144,13 +166,13 @@ export default function Home() {
 
             return (
               <tr key={date}>
-                <td
+                <th
                   className={classnames(
                     backgroundColor === "gold" ? "highlighted" : undefined,
                   )}
                 >
                   {date}
-                </td>
+                </th>
                 <td
                   className={classnames(
                     isLowestPresent && "bad",
