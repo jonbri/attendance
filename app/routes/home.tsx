@@ -16,12 +16,14 @@ export default function Home() {
   const brown = "#8B4513";
   const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
 
-  const highestPresent = attendance.reduce((acc, [, present]) => {
-    return present > acc ? present : acc;
-  }, 0);
-  const lowestPresent = attendance.reduce((acc, [, present]) => {
-    return present < acc ? present : acc;
-  }, 100);
+  const highestPresent = attendance.reduce(
+    (acc, [, present]) => (present > acc ? present : acc),
+    0,
+  );
+  const lowestPresent = attendance.reduce(
+    (acc, [, present]) => (present < acc ? present : acc),
+    100,
+  );
 
   const highestAbsent = attendance.reduce((acc, [, present, total]) => {
     const absent = total - present;
@@ -88,37 +90,22 @@ export default function Home() {
         font-style: italic;
         color: green;
       }
-      header {
-        display: flex;
-        position: relative;
-        border-bottom: 1px solid black;
-        margin-bottom: 5px;
-      }
-      header h1 {
-        margin: 0;
-        padding: 0;
-        margin: auto;
-        font-size: .8rem;
-
-      }
       footer {
         margin-top: 20px;
         font-size: 0.8rem;
+        text-align: center;
       }
       footer ul {
-         display: inline;
-         margin: 0;
-         padding: 0;
+        display: inline;
+        margin: 0;
+        padding: 0;
       }
       footer li {
-         display: inline;
-         margin-right: 5px;
+        display: inline;
+        margin-right: 5px;
       }
       `}
       </style>
-      <header>
-        <h1>Attendance</h1>
-      </header>
       <table>
         <thead>
           <tr>
@@ -211,10 +198,10 @@ export default function Home() {
       <footer>
         <ul>
           <li>
-            <a href="https://jonbri.github.io/keep/">Keep</a>
+            <a href="https://github.com/jonbri/attendance">GitHub</a>
           </li>
           <li>
-            <a href="https://github.com/jonbri/attendance">GitHub</a>
+            <a href="https://jonbri.github.io/keep/">keep</a>
           </li>
         </ul>
       </footer>
