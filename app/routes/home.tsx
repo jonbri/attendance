@@ -114,26 +114,19 @@ export default function Home() {
         font-style: italic;
         color: green;
       }
-      footer {
-        margin-top: 20px;
-        font-size: 0.8rem;
-        text-align: center;
-      }
-      footer ul {
-        display: inline;
-        margin: 0;
-        padding: 0;
-      }
-      footer li {
-        display: inline;
-        margin-right: 5px;
+      .github a {
+          color: blue;
+          font-family: arial;
+          font-size: 0.8rem;
       }
       `}
       </style>
       <table>
         <thead>
           <tr>
-            <th></th>
+            <th className="github">
+              <a href="https://github.com/jonbri/attendance">GitHub</a>
+            </th>
             <th>Pres</th>
             <th>Abs</th>
             <th>Tot</th>
@@ -219,16 +212,6 @@ export default function Home() {
           </tr>
         </tbody>
       </table>
-      <footer>
-        <ul>
-          <li>
-            <a href="https://github.com/jonbri/attendance">GitHub</a>
-          </li>
-          <li>
-            <a href="https://jonbri.github.io/keep/">keep</a>
-          </li>
-        </ul>
-      </footer>
     </div>
   );
 }
