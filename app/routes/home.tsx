@@ -109,6 +109,7 @@ export default function Home() {
         color: red;
       }
       .good {
+        font-weight: bold;
         color: green;
       }
       `}
