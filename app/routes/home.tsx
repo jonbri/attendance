@@ -14,26 +14,14 @@ const exactRate = (5 * inOfficePercentageValue) / 100;
 const rate = exactRate.toFixed(2);
 
 const brown = "#8B4513";
-const warningYellow = "#f0e68c";
-const lighterGreen = "#98FB98";
-const lightGreen = "#90EE90";
-const middleGreen = "#00FF00";
-const solidGreen = "#006400";
-const thresholdColors = {
-  2.6: warningYellow,
-  2.7: lighterGreen,
-  2.8: lightGreen,
-  2.9: middleGreen,
-  3: solidGreen,
-};
 
 const highestPresent = attendance.reduce(
   (acc, [, present]) => (present > acc ? present : acc),
-  0,
+  0
 );
 const lowestPresent = attendance.reduce(
   (acc, [, present]) => (present < acc ? present : acc),
-  100,
+  100
 );
 
 const highestAbsent = attendance.reduce((acc, [, present, total]) => {
@@ -64,12 +52,12 @@ const lowestPercent = attendance.reduce((acc, [, present, total]) => {
 }, 100);
 
 export default function Home() {
-  let backgroundColor = "white";
-  for (const [threshold, color] of Object.entries(thresholdColors)) {
-    if (exactRate >= parseFloat(threshold)) {
-      backgroundColor = color;
-    }
+  let greenness = inOfficePercentageValue * (inOfficePercentageValue / 100);
+  if (inOfficePercentageValue < 60) {
+    greenness = 0;
   }
+
+  let backgroundColor = `rgb(${255 - greenness * 2.55}, 255, ${255 - greenness * 2.55})`;
   const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
   return (
     <div>
@@ -139,7 +127,7 @@ export default function Home() {
               <tr key={date}>
                 <th
                   className={classnames(
-                    isHighestPercent ? "highlighted" : undefined,
+                    isHighestPercent ? "highlighted" : undefined
                   )}
                 >
                   {date}
@@ -147,7 +135,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     present === lowestPresent && "bad",
-                    present === highestPresent && "good",
+                    present === highestPresent && "good"
                   )}
                 >
                   {present}
@@ -155,7 +143,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     absent === lowestAbsent && "good",
-                    absent === highestAbsent && "bad",
+                    absent === highestAbsent && "bad"
                   )}
                 >
                   {absent}
@@ -164,7 +152,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     isLowestPercent && "bad",
-                    isHighestPercent && "good",
+                    isHighestPercent && "good"
                   )}
                 >
                   {inOfficePercentage}
@@ -172,7 +160,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     lowestRate === rate && "bad",
-                    highestRate === rate && "good",
+                    highestRate === rate && "good"
                   )}
                 >
                   {rate.toFixed(1)}
