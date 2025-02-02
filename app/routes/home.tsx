@@ -13,15 +13,32 @@ const inOfficePercentage = `${inOfficePercentageValue.toFixed(1)}%`;
 const exactRate = (5 * inOfficePercentageValue) / 100;
 const rate = exactRate.toFixed(2);
 
+const totalInOfficeLast6Months = attendance
+  .slice(-6)
+  .reduce((acc, [, present]) => acc + present, 0);
+const totalOfficeLast6Months = attendance
+
+  .slice(-6)
+  .reduce((acc, [, , total]) => acc + total, 0);
+const inOfficePercentageValueLast6Months =
+  (totalInOfficeLast6Months / totalOfficeLast6Months) * 100;
+const inOfficePercentageLast6Months = `${inOfficePercentageValueLast6Months.toFixed(
+  1,
+)}%`;
+const exactRateLast6Months = (5 * inOfficePercentageValueLast6Months) / 100;
+const rateLast6Months = exactRateLast6Months.toFixed(2);
+const totalAbsentLast6Months =
+  totalOfficeLast6Months - totalInOfficeLast6Months;
+
 const brown = "#8B4513";
 
 const highestPresent = attendance.reduce(
   (acc, [, present]) => (present > acc ? present : acc),
-  0
+  0,
 );
 const lowestPresent = attendance.reduce(
   (acc, [, present]) => (present < acc ? present : acc),
-  100
+  100,
 );
 
 const highestAbsent = attendance.reduce((acc, [, present, total]) => {
@@ -127,7 +144,7 @@ export default function Home() {
               <tr key={date}>
                 <th
                   className={classnames(
-                    isHighestPercent ? "highlighted" : undefined
+                    isHighestPercent ? "highlighted" : undefined,
                   )}
                 >
                   {date}
@@ -135,7 +152,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     present === lowestPresent && "bad",
-                    present === highestPresent && "good"
+                    present === highestPresent && "good",
                   )}
                 >
                   {present}
@@ -143,7 +160,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     absent === lowestAbsent && "good",
-                    absent === highestAbsent && "bad"
+                    absent === highestAbsent && "bad",
                   )}
                 >
                   {absent}
@@ -152,7 +169,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     isLowestPercent && "bad",
-                    isHighestPercent && "good"
+                    isHighestPercent && "good",
                   )}
                 >
                   {inOfficePercentage}
@@ -160,7 +177,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     lowestRate === rate && "bad",
-                    highestRate === rate && "good"
+                    highestRate === rate && "good",
                   )}
                 >
                   {rate.toFixed(1)}
@@ -168,6 +185,14 @@ export default function Home() {
               </tr>
             );
           })}
+          <tr>
+            <th>6 Months</th>
+            <th>{totalInOfficeLast6Months}</th>
+            <th>{totalAbsentLast6Months}</th>
+            <th>{totalOfficeLast6Months}</th>
+            <th>{inOfficePercentageLast6Months}</th>
+            <th className="aggregate">{rateLast6Months}</th>
+          </tr>
           <tr>
             <th></th>
             <th>{totalInOffice}</th>
