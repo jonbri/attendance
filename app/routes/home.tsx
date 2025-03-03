@@ -117,11 +117,15 @@ export default function Home() {
         font-weight: bold;
         color: green;
       }
+      .sixmonths {
+        border-top: 2px solid black;
+      }
       `}
       </style>
       <table>
         <thead>
           <tr>
+            <th></th>
             <th></th>
             <th>Pres</th>
             <th>Abs</th>
@@ -131,7 +135,7 @@ export default function Home() {
           </tr>
         </thead>
         <tbody>
-          {attendance.map(([date, present, total]) => {
+          {attendance.map(([date, present, total], i) => {
             const absent = total - present;
             const inOfficePercentageValue = (present / total) * 100;
             const inOfficePercentage = `${inOfficePercentageValue.toFixed(1)}%`;
@@ -142,6 +146,7 @@ export default function Home() {
               `${lowestPercent.toFixed(1)}%` === inOfficePercentage;
             return (
               <tr key={date}>
+                <th className="index">{i}</th>
                 <th
                   className={classnames(
                     isHighestPercent ? "highlighted" : undefined,
@@ -185,8 +190,9 @@ export default function Home() {
               </tr>
             );
           })}
-          <tr>
-            <th>6 Months</th>
+          <tr className="sixmonths">
+            <th></th>
+            <th>Six Months</th>
             <th>{totalInOfficeLast6Months}</th>
             <th>{totalAbsentLast6Months}</th>
             <th>{totalOfficeLast6Months}</th>
@@ -194,6 +200,7 @@ export default function Home() {
             <th className="aggregate">{rateLast6Months}</th>
           </tr>
           <tr>
+            <th></th>
             <th></th>
             <th>{totalInOffice}</th>
             <th>{totalAbsent}</th>
