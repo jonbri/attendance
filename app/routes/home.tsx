@@ -68,13 +68,16 @@ const lowestPercent = attendance.reduce((acc, [, present, total]) => {
   return percent < acc ? percent : acc;
 }, 100);
 
-export default function Home() {
-  let greenness = inOfficePercentageValue * (inOfficePercentageValue / 100);
-  if (inOfficePercentageValue < 60) {
-    greenness = 0;
-  }
+const calculateGreenness = (value: number) => {
+  if (value < 60) return value * (value / 150);
+  return value * (value / 100);
+};
+const getGreenColor = (value: number) => {
+  const greenness = calculateGreenness(value);
+  return `rgb(${255 - greenness * 2.55}, 255, ${255 - greenness * 2.55})`;
+};
 
-  let backgroundColor = `rgb(${255 - greenness * 2.55}, 255, ${255 - greenness * 2.55})`;
+export default function Home() {
   const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
   return (
     <div>
@@ -82,7 +85,7 @@ export default function Home() {
         {`
       body {
         font-size: 1rem;
-        background-color: ${backgroundColor};
+        background-color: ${getGreenColor(inOfficePercentageValue)};
         font-family: arial;
       }
       table {
@@ -180,6 +183,9 @@ export default function Home() {
                   {inOfficePercentage}
                 </td>
                 <td
+                  style={{
+                    backgroundColor: getGreenColor(inOfficePercentageValue),
+                  }}
                   className={classnames(
                     lowestRate === rate && "bad",
                     highestRate === rate && "good",
