@@ -5,6 +5,10 @@ import { attendance } from "~/data";
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Attendance" }];
 }
+
+const standard = 3;
+const standardPercentage = (standard / 5) * 100;
+
 const totalInOffice = attendance.reduce((acc, [, present]) => acc + present, 0);
 const totalOffice = attendance.reduce((acc, [, , total]) => acc + total, 0);
 const totalAbsent = totalOffice - totalInOffice;
@@ -68,12 +72,12 @@ const lowestPercent = attendance.reduce((acc, [, present, total]) => {
   return percent < acc ? percent : acc;
 }, 100);
 
-const calculateGreenness = (value: number) => {
-  if (value < 60) return value * (value / 150);
-  return value * (value / 100);
+const calculateGreenness = (percent: number) => {
+  if (percent < standardPercentage) return percent * (percent / 150);
+  return percent * (percent / 100);
 };
-const getGreenColor = (value: number) => {
-  const greenness = calculateGreenness(value);
+const getGreenColor = (percent: number) => {
+  const greenness = calculateGreenness(percent);
   return `rgb(${255 - greenness * 2.55}, 255, ${255 - greenness * 2.55})`;
 };
 
