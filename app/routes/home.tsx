@@ -30,7 +30,7 @@ export default function Home() {
     highestPresent,
     lowestAbsent,
     highestAbsent,
-  } = getFigures();
+  } = getFigures(attendance);
   const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
   return (
     <div>
