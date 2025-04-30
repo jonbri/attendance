@@ -7,4 +7,5 @@ export const attendance: OfficeMonth[] = [
   ["Jan 2025", 19, 21],
   ["Feb 2025", 11, 20],
   ["Mar 2025", 13, 20],
+  ["Apr 2025", 14, 23],
 ];
