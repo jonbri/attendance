@@ -30,6 +30,8 @@ export default function Home() {
     highestPresent,
     lowestAbsent,
     highestAbsent,
+    totalDiff,
+    last6MonthsDiff,
   } = getFigures(attendance);
   const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
   return (
@@ -156,7 +158,9 @@ export default function Home() {
             <th>{totalAbsentLast6Months}</th>
             <th>{totalOfficeLast6Months}</th>
             <th>{inOfficePercentageLast6Months}</th>
-            <th className="aggregate">{rateLast6Months}</th>
+            <th className="aggregate">
+              {rateLast6Months} ({last6MonthsDiff})
+            </th>
           </tr>
           <tr>
             <th></th>
@@ -165,7 +169,9 @@ export default function Home() {
             <th>{totalAbsent}</th>
             <th>{totalOffice}</th>
             <th>{inOfficePercentage}</th>
-            <th className="aggregate">{rate}</th>
+            <th className="aggregate">
+              {rate} ({totalDiff})
+            </th>
           </tr>
         </tbody>
       </table>

@@ -76,6 +76,10 @@ export const getFigures = (attendance: OfficeMonth[]) => {
     const percent = (present / total) * 100;
     return percent < acc ? percent : acc;
   }, 100);
+
+  const totalDiff = totalInOffice - totalAbsent;
+  const last6MonthsDiff = totalInOfficeLast6Months - totalAbsentLast6Months;
+
   return {
     totalInOffice,
     totalOffice,
@@ -96,5 +100,8 @@ export const getFigures = (attendance: OfficeMonth[]) => {
     rateLast6Months,
     inOfficePercentage,
     inOfficePercentageValue,
+    totalDiff: totalDiff > 0 ? `+${totalDiff}` : totalDiff,
+    last6MonthsDiff:
+      last6MonthsDiff > 0 ? `+${last6MonthsDiff}` : last6MonthsDiff,
   };
 };
