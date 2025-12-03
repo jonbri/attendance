@@ -32,6 +32,20 @@ export default function Home() {
     highestAbsent,
     totalDiff,
     last6MonthsDiff,
+    // 2024 data
+    totalInOffice2024,
+    totalOffice2024,
+    totalAbsent2024,
+    inOfficePercentage2024,
+    rate2024,
+    diff2024,
+    // 2025 data
+    totalInOffice2025,
+    totalOffice2025,
+    totalAbsent2025,
+    inOfficePercentage2025,
+    rate2025,
+    diff2025,
   } = getFigures(attendance);
   const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
   return (
@@ -107,7 +121,7 @@ export default function Home() {
                 <th className="index">{i}</th>
                 <th
                   className={classnames(
-                    isHighestPercent ? "highlighted" : undefined,
+                    isHighestPercent ? "highlighted" : undefined
                   )}
                 >
                   {date}
@@ -115,7 +129,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     present === lowestPresent && "bad",
-                    present === highestPresent && "good",
+                    present === highestPresent && "good"
                   )}
                 >
                   {present}
@@ -123,7 +137,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     absent === lowestAbsent && "good",
-                    absent === highestAbsent && "bad",
+                    absent === highestAbsent && "bad"
                   )}
                 >
                   {absent}
@@ -132,7 +146,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     isLowestPercent && "bad",
-                    isHighestPercent && "good",
+                    isHighestPercent && "good"
                   )}
                 >
                   {inOfficePercentage}
@@ -143,7 +157,7 @@ export default function Home() {
                   }}
                   className={classnames(
                     lowestRate === rate && "bad",
-                    highestRate === rate && "good",
+                    highestRate === rate && "good"
                   )}
                 >
                   {rate.toFixed(1)}
@@ -152,6 +166,28 @@ export default function Home() {
             );
           })}
           <tr className="sixmonths">
+            <th></th>
+            <th>2024</th>
+            <th>{totalInOffice2024}</th>
+            <th>{totalAbsent2024}</th>
+            <th>{totalOffice2024}</th>
+            <th>{inOfficePercentage2024}</th>
+            <th className="aggregate">
+              {rate2024} ({diff2024})
+            </th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>2025</th>
+            <th>{totalInOffice2025}</th>
+            <th>{totalAbsent2025}</th>
+            <th>{totalOffice2025}</th>
+            <th>{inOfficePercentage2025}</th>
+            <th className="aggregate">
+              {rate2025} ({diff2025})
+            </th>
+          </tr>
+          <tr>
             <th></th>
             <th>Six Months</th>
             <th>{totalInOfficeLast6Months}</th>
