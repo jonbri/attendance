@@ -2,6 +2,17 @@ import type { Route } from "./+types/home";
 import { attendance } from "~/data";
 import { getGreenColor, getFigures } from "~/logic";
 import classnames from "classnames";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  ReferenceLine,
+} from "recharts";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Attendance" }];
@@ -48,6 +59,20 @@ export default function Home() {
     diff2025,
   } = getFigures(attendance);
   const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
+
+  // Prepare chart data from attendance
+  const chartData = attendance.map(([date, present, total]) => {
+    const rate = (5 * ((present / total) * 100)) / 100;
+    const percentage = (present / total) * 100;
+    return {
+      month: date,
+      rate: parseFloat(rate.toFixed(2)),
+      percentage: parseFloat(percentage.toFixed(1)),
+      present,
+      absent: total - present,
+    };
+  });
+
   return (
     <div>
       <style>
@@ -92,6 +117,18 @@ export default function Home() {
       .sixmonths {
         border-top: 2px solid black;
       }
+      .chart-container {
+        width: 80%;
+        margin: 20px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .chart-title {
+        text-align: center;
+        margin-bottom: 10px;
+        font-family: arial;
+      }
       `}
       </style>
       <table>
@@ -121,7 +158,7 @@ export default function Home() {
                 <th className="index">{i}</th>
                 <th
                   className={classnames(
-                    isHighestPercent ? "highlighted" : undefined
+                    isHighestPercent ? "highlighted" : undefined,
                   )}
                 >
                   {date}
@@ -129,7 +166,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     present === lowestPresent && "bad",
-                    present === highestPresent && "good"
+                    present === highestPresent && "good",
                   )}
                 >
                   {present}
@@ -137,7 +174,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     absent === lowestAbsent && "good",
-                    absent === highestAbsent && "bad"
+                    absent === highestAbsent && "bad",
                   )}
                 >
                   {absent}
@@ -146,7 +183,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     isLowestPercent && "bad",
-                    isHighestPercent && "good"
+                    isHighestPercent && "good",
                   )}
                 >
                   {inOfficePercentage}
@@ -157,7 +194,7 @@ export default function Home() {
                   }}
                   className={classnames(
                     lowestRate === rate && "bad",
-                    highestRate === rate && "good"
+                    highestRate === rate && "good",
                   )}
                 >
                   {rate.toFixed(1)}
@@ -211,6 +248,48 @@ export default function Home() {
           </tr>
         </tbody>
       </table>
+
+      <div className="chart-container">
+        <h3 className="chart-title">Monthly Attendance Rate</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={chartData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="month"
+              tick={{ fontSize: 12 }}
+              angle={-45}
+              textAnchor="end"
+              height={60}
+            />
+            <YAxis
+              domain={[0, 5]}
+              ticks={[0, 1, 2, 3, 4, 5]}
+              label={{ value: "Rate", angle: -90, position: "insideLeft" }}
+            />
+            <Tooltip
+              formatter={(value: number, name: string) => {
+                if (name === "rate") return [value.toFixed(2), "Rate"];
+                return [value, name];
+              }}
+            />
+            <Legend />
+            <ReferenceLine
+              y={3}
+              stroke="orange"
+              strokeDasharray="5 5"
+              label="Target (3.0)"
+            />
+            <Line
+              type="monotone"
+              dataKey="rate"
+              stroke="#2196F3"
+              strokeWidth={2}
+              dot={{ fill: "#2196F3", strokeWidth: 2, r: 4 }}
+              activeDot={{ r: 6 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }
