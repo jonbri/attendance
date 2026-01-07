@@ -130,6 +130,7 @@ export default function Home() {
         background-color: white;
         padding: 20px;
         border-radius: 8px;
+        min-height: 340px;
       }
       .chart-title {
         text-align: center;
@@ -165,7 +166,7 @@ export default function Home() {
                 <th className="index">{i}</th>
                 <th
                   className={classnames(
-                    isHighestPercent ? "highlighted" : undefined
+                    isHighestPercent ? "highlighted" : undefined,
                   )}
                 >
                   {date}
@@ -173,7 +174,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     present === lowestPresent && "bad",
-                    present === highestPresent && "good"
+                    present === highestPresent && "good",
                   )}
                 >
                   {present}
@@ -181,7 +182,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     absent === lowestAbsent && "good",
-                    absent === highestAbsent && "bad"
+                    absent === highestAbsent && "bad",
                   )}
                 >
                   {absent}
@@ -190,7 +191,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     isLowestPercent && "bad",
-                    isHighestPercent && "good"
+                    isHighestPercent && "good",
                   )}
                 >
                   {inOfficePercentage}
@@ -201,7 +202,7 @@ export default function Home() {
                   }}
                   className={classnames(
                     lowestRate === rate && "bad",
-                    highestRate === rate && "good"
+                    highestRate === rate && "good",
                   )}
                 >
                   {rate.toFixed(1)}
