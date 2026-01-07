@@ -57,6 +57,13 @@ export default function Home() {
     inOfficePercentage2025,
     rate2025,
     diff2025,
+    // 2026 data
+    totalInOffice2026,
+    totalOffice2026,
+    totalAbsent2026,
+    inOfficePercentage2026,
+    rate2026,
+    diff2026,
   } = getFigures(attendance);
   const aggregateColor = parseInt(rate) >= 3 ? "green" : brown;
 
@@ -158,7 +165,7 @@ export default function Home() {
                 <th className="index">{i}</th>
                 <th
                   className={classnames(
-                    isHighestPercent ? "highlighted" : undefined,
+                    isHighestPercent ? "highlighted" : undefined
                   )}
                 >
                   {date}
@@ -166,7 +173,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     present === lowestPresent && "bad",
-                    present === highestPresent && "good",
+                    present === highestPresent && "good"
                   )}
                 >
                   {present}
@@ -174,7 +181,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     absent === lowestAbsent && "good",
-                    absent === highestAbsent && "bad",
+                    absent === highestAbsent && "bad"
                   )}
                 >
                   {absent}
@@ -183,7 +190,7 @@ export default function Home() {
                 <td
                   className={classnames(
                     isLowestPercent && "bad",
-                    isHighestPercent && "good",
+                    isHighestPercent && "good"
                   )}
                 >
                   {inOfficePercentage}
@@ -194,7 +201,7 @@ export default function Home() {
                   }}
                   className={classnames(
                     lowestRate === rate && "bad",
-                    highestRate === rate && "good",
+                    highestRate === rate && "good"
                   )}
                 >
                   {rate.toFixed(1)}
@@ -222,6 +229,17 @@ export default function Home() {
             <th>{inOfficePercentage2025}</th>
             <th className="aggregate">
               {rate2025} ({diff2025})
+            </th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>2026</th>
+            <th>{totalInOffice2026}</th>
+            <th>{totalAbsent2026}</th>
+            <th>{totalOffice2026}</th>
+            <th>{inOfficePercentage2026}</th>
+            <th className="aggregate">
+              {rate2026} ({diff2026})
             </th>
           </tr>
           <tr>

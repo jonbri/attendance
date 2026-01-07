@@ -15,7 +15,7 @@ export const getGreenColor = (percent: number) => {
 export const getFigures = (attendance: OfficeMonth[]) => {
   const totalInOffice = attendance.reduce(
     (acc, [, present]) => acc + present,
-    0,
+    0
   );
   const totalOffice = attendance.reduce((acc, [, , total]) => acc + total, 0);
   const totalAbsent = totalOffice - totalInOffice;
@@ -34,7 +34,7 @@ export const getFigures = (attendance: OfficeMonth[]) => {
   const inOfficePercentageValueLast6Months =
     (totalInOfficeLast6Months / totalOfficeLast6Months) * 100;
   const inOfficePercentageLast6Months = `${inOfficePercentageValueLast6Months.toFixed(
-    1,
+    1
   )}%`;
   const exactRateLast6Months = (5 * inOfficePercentageValueLast6Months) / 100;
   const rateLast6Months = exactRateLast6Months.toFixed(2);
@@ -43,11 +43,11 @@ export const getFigures = (attendance: OfficeMonth[]) => {
 
   const highestPresent = attendance.reduce(
     (acc, [, present]) => (present > acc ? present : acc),
-    0,
+    0
   );
   const lowestPresent = attendance.reduce(
     (acc, [, present]) => (present < acc ? present : acc),
-    100,
+    100
   );
 
   const highestAbsent = attendance.reduce((acc, [, present, total]) => {
@@ -84,11 +84,11 @@ export const getFigures = (attendance: OfficeMonth[]) => {
   const attendance2024 = attendance.filter(([date]) => date.includes("2024"));
   const totalInOffice2024 = attendance2024.reduce(
     (acc, [, present]) => acc + present,
-    0,
+    0
   );
   const totalOffice2024 = attendance2024.reduce(
     (acc, [, , total]) => acc + total,
-    0,
+    0
   );
   const totalAbsent2024 = totalOffice2024 - totalInOffice2024;
   const inOfficePercentageValue2024 =
@@ -101,11 +101,11 @@ export const getFigures = (attendance: OfficeMonth[]) => {
   const attendance2025 = attendance.filter(([date]) => date.includes("2025"));
   const totalInOffice2025 = attendance2025.reduce(
     (acc, [, present]) => acc + present,
-    0,
+    0
   );
   const totalOffice2025 = attendance2025.reduce(
     (acc, [, , total]) => acc + total,
-    0,
+    0
   );
   const totalAbsent2025 = totalOffice2025 - totalInOffice2025;
   const inOfficePercentageValue2025 =
@@ -113,6 +113,23 @@ export const getFigures = (attendance: OfficeMonth[]) => {
   const inOfficePercentage2025 = `${inOfficePercentageValue2025.toFixed(1)}%`;
   const rate2025 = ((5 * inOfficePercentageValue2025) / 100).toFixed(2);
   const diff2025 = totalInOffice2025 - totalAbsent2025;
+
+  // 2026 data
+  const attendance2026 = attendance.filter(([date]) => date.includes("2026"));
+  const totalInOffice2026 = attendance2026.reduce(
+    (acc, [, present]) => acc + present,
+    0
+  );
+  const totalOffice2026 = attendance2026.reduce(
+    (acc, [, , total]) => acc + total,
+    0
+  );
+  const totalAbsent2026 = totalOffice2026 - totalInOffice2026;
+  const inOfficePercentageValue2026 =
+    totalOffice2026 > 0 ? (totalInOffice2026 / totalOffice2026) * 100 : 0;
+  const inOfficePercentage2026 = `${inOfficePercentageValue2026.toFixed(1)}%`;
+  const rate2026 = ((5 * inOfficePercentageValue2026) / 100).toFixed(2);
+  const diff2026 = totalInOffice2026 - totalAbsent2026;
 
   return {
     totalInOffice,
@@ -151,5 +168,12 @@ export const getFigures = (attendance: OfficeMonth[]) => {
     inOfficePercentage2025,
     rate2025,
     diff2025: diff2025 > 0 ? `+${diff2025}` : diff2025,
+    // 2026 data
+    totalInOffice2026,
+    totalOffice2026,
+    totalAbsent2026,
+    inOfficePercentage2026,
+    rate2026,
+    diff2026: diff2026 > 0 ? `+${diff2026}` : diff2026,
   };
 };
